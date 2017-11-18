@@ -1,7 +1,7 @@
 if((typeof window === 'undefined') || (this !== window)) {
     // If in NodeJS, ensure that QUnit and detect.js are loaded as expected.
-    var QUnit = require('qunit')
-    var ns = require('./detect.js')
+    var QUnit = require('qunit');
+    var ns = require('./detect');
 }
 
 S = ns.Scheme;
