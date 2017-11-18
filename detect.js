@@ -32,7 +32,7 @@
         .sort(function(x, y) { return y[1] - x[1]; });  // sort by code point
 
     // Match on special Roman characters
-    var RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]/,
+    var RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|[aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|[mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|[sS][\u0301\u0323]|[lL]\u0331/,
 
     // Match on chars shared by ITRANS and Velthuis
     RE_ITRANS_OR_VELTHUIS_ONLY = /aa|ii|uu|~n/,
@@ -41,7 +41,7 @@
     RE_ITRANS_ONLY = /ee|oo|\^[iI]|RR[iI]|L[iI]|~N|N\^|Ch|chh|JN|sh|Sh|\.a/,
 
     // Match on Kolkata-specific Roman characters
-    RE_KOLKATA_ONLY = /[ēōĒŌ]/,
+    RE_KOLKATA_ONLY = /[ēōĒŌ]|[eoEO]\u0304/,
 
     // Match on SLP1-only characters and bigrams
     RE_SLP1_ONLY = RegExp(['[fFxXEOCYwWqQPB]|kz|N[kg]|tT|dD|S[cn]|',
