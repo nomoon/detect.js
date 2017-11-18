@@ -20,25 +20,19 @@
         ['Velthuis', null],
     ],
 
-    // Start of the Devanagari block.
-    BRAHMIC_FIRST_CODE_POINT = 0x0900,
-
-    // End of the Malayalam block.
-    BRAHMIC_LAST_CODE_POINT = 0x0d7f,
-
     // Schemes sorted by Unicode code point. Ignore schemes with none defined.
     BLOCKS = SCHEMES
         .filter(function(x) { return x[1]; })  // keep non-null
         .sort(function(x, y) { return y[1] - x[1]; });  // sort by code point
 
+    // Match on any Brahmic character between Devanagari and Malayalam
+    var RE_BRAHMIC_CHARACTER = /[\u0900-\u0d7f]/
+
     // Match on special Roman characters
-    var RE_IAST_OR_KOLKATA_ONLY = RegExp(['[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|',
-                                          '[aiueoAIUEO]\u0304|',
-                                          '[rlRL]\u0323\u0304?|',
-                                          '[mhtdMHTD]\u0323|',
-                                          '[nN][\u0307\u0303\u0323]|',
-                                          '[sS][\u0301\u0323]|',
-                                          '[lL]\u0331'].join('')),
+    RE_IAST_OR_KOLKATA_ONLY = RegExp(['[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|',
+                                      '[aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|',
+                                      '[mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|',
+                                      '[sS][\u0301\u0323]|[lL]\u0331'].join('')),
 
     // Match on chars shared by ITRANS and Velthuis
     RE_ITRANS_OR_VELTHUIS_ONLY = /aa|ii|uu|~n/,
@@ -58,22 +52,20 @@
     RE_VELTHUIS_ONLY = /\.[mhnrlntds]|"n|~s/;
 
     var Scheme = ns.Scheme = {};
-    for (i = 0; i < SCHEMES.length; i++) {
+    for (var i = 0; i < SCHEMES.length; i++) {
         var value = SCHEMES[i][0];
         Scheme[value] = value;
     }
 
     ns.detect = function(text) {
         // Brahmic schemes are all within a specific range of code points.
-        for (var i = 0; i < text.length; i++) {
-            var L = text[i],
-                code = L.charCodeAt(L);
-            if (code >= BRAHMIC_FIRST_CODE_POINT && code <= BRAHMIC_LAST_CODE_POINT) {
-                for (var j = 0; j < BLOCKS.length; j++) {
-                    var block = BLOCKS[j];
-                    if (code >= block[1]) {
-                        return block[0];
-                    }
+        var brahmic_match = RE_BRAHMIC_CHARACTER.exec(text);
+        if (brahmic_match) {
+            var code = brahmic_match[0].charCodeAt(0)
+            for (var j = 0; j < BLOCKS.length; j++) {
+                var block = BLOCKS[j];
+                if (code >= block[1]) {
+                    return block[0];
                 }
             }
         }
