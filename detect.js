@@ -44,7 +44,7 @@
     RE_KOLKATA_ONLY = /[ēō]/,
 
     // Match on SLP1-only characters and bigrams
-    RE_SLP1_ONLY = RegExp(['[fFxXEOCYwWqQPB]|kz|Nk|Ng|tT|dD|Sc|Sn|',
+    RE_SLP1_ONLY = RegExp(['[fFxXEOCYwWqQPB]|kz|N[kg]|tT|dD|S[cn]|',
                            '[aAiIuUfFxXeEoO]R|',
                            'G[yr]|(\\W|^)G'].join('')),
 
