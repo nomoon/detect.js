@@ -1,0 +1,13 @@
+{
+  "name": "sanscript-detect",
+  "version": "1.0.0",
+  "description": "Sanskrit encoding/transliteration scheme detection.",
+  "main": "detect.js",
+  "dependencies": {},
+  "devDependencies": {
+    "qunit": "^2.4.1"
+  },
+  "scripts": {
+    "test": "qunit test.js"
+  }
+}
