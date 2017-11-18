@@ -32,7 +32,13 @@
         .sort(function(x, y) { return y[1] - x[1]; });  // sort by code point
 
     // Match on special Roman characters
-    var RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|[aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|[mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|[sS][\u0301\u0323]|[lL]\u0331/,
+    var RE_IAST_OR_KOLKATA_ONLY = RegExp(['[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|',
+                                          '[aiueoAIUEO]\u0304|',
+                                          '[rlRL]\u0323\u0304?|',
+                                          '[mhtdMHTD]\u0323|',
+                                          '[nN][\u0307\u0303\u0323]|',
+                                          '[sS][\u0301\u0323]|',
+                                          '[lL]\u0331'].join('')),
 
     // Match on chars shared by ITRANS and Velthuis
     RE_ITRANS_OR_VELTHUIS_ONLY = /aa|ii|uu|~n/,
