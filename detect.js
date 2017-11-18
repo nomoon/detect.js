@@ -98,6 +98,4 @@
 
         return Scheme.HK;
     };
-
-}(window.ns = window.ns || {}));
-
+}(typeof exports === 'undefined' ? (this['ns'] = this['ns'] || {}) : exports));

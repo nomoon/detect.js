@@ -1,5 +1,10 @@
-S = ns.Scheme;
+if((typeof window === 'undefined') || (this !== window)) {
+    // If in NodeJS, ensure that QUnit and detect.js are loaded as expected.
+    var QUnit = require('qunit')
+    var ns = require('./detect.js')
+}
 
+S = ns.Scheme;
 
 function add(testcases, scheme, items) {
     for (var i = 0; i < items.length; i++) {
@@ -178,20 +183,20 @@ add(BASIC, S.Velthuis, [
 ]);
 
 
-module('Basic');
-test('basicTests', function() {
+QUnit.module('Basic');
+QUnit.test('basicTests', function(assert) {
     for (var i = 0; i < BASIC.length; i++) {
         var datum = BASIC[i],
             text = datum[0],
             scheme = datum[1],
             test_name = text + ' (' + scheme + ')';
-        equal(ns.detect(text), scheme, test_name);
+        assert.equal(ns.detect(text), scheme, test_name);
     }
 });
 
 
-module('Noisy');
-test('noisyTests', function() {
+QUnit.module('Noisy');
+QUnit.test('noisyTests', function(assert) {
     var noise = ' \t\n 1234567890 !@#$%^&*(),.<>\'\"-_[]{}\\|;:`~ ΣД あア';
     for (var i = 0; i < BASIC.length; i++) {
         var datum = BASIC[i],
@@ -199,6 +204,6 @@ test('noisyTests', function() {
             scheme = datum[1],
             test_name = text + ' (' + scheme + ')';
         text = noise + text + noise;
-        equal(ns.detect(text), scheme, test_name);
+        assert.equal(ns.detect(text), scheme, test_name);
     }
 });
